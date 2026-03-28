@@ -10,6 +10,7 @@ belt.next_upgrade = nil
 belt.circuit_wire_max_distance = nil
 belt.circuit_connector = nil
 belt.map_color = {0.3,0.3,0.3}
+belt.minable = nil
 
 local animations = belt.belt_animation_set.animation_set
 animations.tint = {0.3,0.3,0.3}
