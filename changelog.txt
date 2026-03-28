@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.3
-Date: ????
+Date: 2026-03-28
   Changes:
     - Beltfoot can no longer clear enemies.
     - Fixed a bug that happened if you died while beltfoot, and then were placed on a thing to be destroyed.
