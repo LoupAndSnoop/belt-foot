@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.4
-Date: ????
+Date: 2026-03-28
   Changes:
     - Fixed a bug from a previous refactor. The new version should have higher QOL that makes belt-foot belts match the direction of belts that already exist.
 ---------------------------------------------------------------------------------------------------
