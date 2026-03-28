@@ -5,7 +5,8 @@ local belt_collision_mask = prototypes.entity[BELT_NAME].collision_mask.layers
 local MAX_BELT_CHECKS_PER_UPDATE = 50
 
 local types_not_to_mine_list = {"character", "car", "spider-vehicle",
-    "combat-robot", "construction-robot", "logistic-robot", "resource"}
+    "combat-robot", "construction-robot", "logistic-robot", "resource",
+    "segmented-unit", "unit-spawner", "unit"}
 local types_not_to_mine = {}
 for _, entry in pairs(types_not_to_mine_list) do
     types_not_to_mine[entry] = true
@@ -17,7 +18,8 @@ end
 local function try_mine(entity, player_index)
     if entity.type == "entity-ghost" then entity.mine()
     else --Must mine real entity
-        if player_index then game.get_player(player_index).mine_entity(entity, true) 
+        local player = player_index and game.get_player(player_index)
+        if player and player.character then player.mine_entity(entity, true) 
         else --Not placed by a player, so try to spill on the floor.
             local item = entity.prototype.items_to_place_this and entity.prototype.items_to_place_this[1]
             if item then --Only spill if something actually places this item.
