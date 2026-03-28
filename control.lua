@@ -62,8 +62,11 @@ local function place_belt(surface, position, player, direction)
     storage.placed_belts[new_entity] = {surface = surface, player = player, position = position, direction = direction}
 end
 
+--Clear a spot to make room for a belt.
 local function clear_spot(player, position, surface)
     player = player or game.players[1]
+    local belt_direction = nil
+
     --Mine materials in the way
     local position_center = {math.floor(position.x) + 0.5, math.floor(position.y) + 0.5}
     local check_wipe = surface.find_entities_filtered{
@@ -85,6 +88,8 @@ local function clear_spot(player, position, surface)
             end
         end
     end
+
+    return belt_direction
 end
 
 --On an event triggered by a building action, check to see if we need to do an entity swap. If so, then do it!
@@ -114,8 +119,8 @@ local try_place_belt = function(player_index, character)
         build_check_type=defines.build_check_type.script,
         force= neutral_force} then return end]]
 
-    --Mine materials in the way
-    clear_spot(player, position, surface)
+    --Mine materials in the way. Prioritize maintaining the direction of existing belts
+    belt_direction = clear_spot(player, position, surface) or belt_direction
 
     --Actually make the belt
     place_belt(surface, position, player, belt_direction)
