@@ -3,6 +3,8 @@ Version: 0.69.5
 Date: ????
   Changes:
     - Added an option to toggle "Destructive mode", toggling whether or not a machine gets destroyed when walking through with beltfoot.
+    - UPS optimization to prevent lag spikes.
+    - Marked Rubia as incompatible.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.4
 Date: 2026-03-28
