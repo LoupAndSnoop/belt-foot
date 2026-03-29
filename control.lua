@@ -47,7 +47,7 @@ local function place_belt(surface, position, player, direction)
         position = position,
         direction = direction,
         force = game.forces.neutral,
-        raise_built = false,
+        raise_built = true,--false,
         player = player,
         preserve_ghosts_and_corpses = false,
     }
