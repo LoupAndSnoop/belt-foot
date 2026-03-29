@@ -3,6 +3,8 @@ local lib = require("__belt-foot__.lib")
 local BELT_NAME = "belt-foot-permanent-belt"
 local belt_collision_mask = prototypes.entity[BELT_NAME].collision_mask.layers
 local MAX_BELT_CHECKS_PER_UPDATE = 50
+local MAX_BELT_RESPAWNS_PER_UPDATE = 8
+local DESTRUCTIVE_MODE = settings.startup["belt-foot-destructive-mode"].value
 
 local types_not_to_mine_list = {"character", "car", "spider-vehicle",
     "combat-robot", "construction-robot", "logistic-robot", "resource",
@@ -81,7 +83,7 @@ local function clear_spot(player, position, surface)
                 entity.create_build_effect_smoke()
                 player.play_sound{path="utility/axe_mining_stone", position=player.position, volume_modifier=1}
                 entity.destroy()
-            elseif not types_not_to_mine[true_type] then
+            elseif DESTRUCTIVE_MODE and not types_not_to_mine[true_type] then
                 entity.create_build_effect_smoke()
                 player.play_sound{path="utility/axe_mining_stone", position=player.position, volume_modifier=1}
                 try_mine(entity, player.index)
@@ -136,9 +138,14 @@ local function place_all_belts()
     end
 end
 
+local respawned_belts_this_tick = 0
 --Recheck belts, and re-place if needed
 local function check_belt(entry, entity)
     if not entry or not entry.surface then return end
+
+    if respawned_belts_this_tick > MAX_BELT_RESPAWNS_PER_UPDATE then
+        return
+    end
 
     --Belt totally destroyed or teleported
     if not entity or not entity.valid 
@@ -149,6 +156,8 @@ local function check_belt(entry, entity)
         clear_spot(player, entry.position, entry.surface)
         place_belt(entry.surface, entry.position, player, entry.direction)
         storage.placed_belts[entity] = nil
+
+        respawned_belts_this_tick = respawned_belts_this_tick + 1
         return
     end
 
@@ -162,9 +171,11 @@ end
 local function belt_check_update()
     storage.placed_belts = storage.placed_belts or {}
 
+    respawned_belts_this_tick = 0
     --Index of the last chunk where we ended iteration
     storage.check_index = lib.for_n_of(storage.placed_belts, storage.check_index,
         MAX_BELT_CHECKS_PER_UPDATE, check_belt)
+    respawned_belts_this_tick = 0
 end
 
 
