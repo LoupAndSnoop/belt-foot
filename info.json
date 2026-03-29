@@ -8,7 +8,7 @@
         "! delete-gleba",
         "! rubia"
     ],
-    "description": "Belts spawn wherever you walk, accelerating your early game. Watch your step ;)",
+    "description": "Belts spawn wherever you walk. Watch your step ;)",
     "homepage": "https://discord.gg/CaDJzEj557",
     "package":{
         "ignore":[ "**/*.mp3", "**/*.xcf", "**/*.zip", ".vscode/*", "deprecated/*"]
