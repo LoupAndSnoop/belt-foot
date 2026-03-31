@@ -5,8 +5,7 @@
     "author": "Loup&Snoop, 2026",
     "factorio_version": "2.0",
     "dependencies": ["base >= 2.0.69",
-        "! delete-gleba",
-        "! rubia"
+        "! delete-gleba"
     ],
     "description": "Belts spawn wherever you walk. Watch your step ;)",
     "homepage": "https://discord.gg/CaDJzEj557",

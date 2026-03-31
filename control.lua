@@ -124,6 +124,11 @@ local try_place_belt = function(player_index, character)
     --Mine materials in the way. Prioritize maintaining the direction of existing belts
     belt_direction = clear_spot(player, position, surface) or belt_direction
 
+    --Rubia wind
+    if surface.name == "rubia" and belt_direction == defines.direction.west then
+        belt_direction = defines.direction.east
+    end
+
     --Actually make the belt
     place_belt(surface, position, player, belt_direction)
 end
