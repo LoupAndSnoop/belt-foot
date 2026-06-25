@@ -54,7 +54,7 @@ local function place_belt(surface, position, player, direction)
     if not new_entity or not new_entity.valid then return end
 
     new_entity.destructible = false
-    new_entity.minable = false
+    new_entity.minable_flag = false
     new_entity.rotatable = false
     new_entity.operable = false
     player.play_sound{path="utility/build_medium", position=player.position, volume_modifier=0.7}
